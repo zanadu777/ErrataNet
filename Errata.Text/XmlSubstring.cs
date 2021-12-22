@@ -18,20 +18,20 @@ namespace Errata.Text
 
         public bool FilterElement(string element)
         {
-            var rxElement = new Regex($@"<{element}.*?</{element}>", RegexOptions.Singleline);
+            var rxElement = new Regex($@"<{element}(>|\s.*?>).*?</{element}>", RegexOptions.Singleline);
             return base.Filter(rxElement);
         }
 
         public bool FilterElement(string element, Predicate<Match> matchChooser)
         {
-            var rxElement = new Regex($@"<{element}.*?>(?<value>.*?)</{element}>", RegexOptions.Singleline);
+            var rxElement = new Regex($@"(<{element}(>|\s.*?>).*?>(?<value>.*?)</{element}>|<{element}\s+.*?/>)", RegexOptions.Singleline);
             return base.Filter(rxElement,matchChooser);
         }
 
 
         public bool FilterElementValue(string element)
         {
-            var rxElement = new Regex($@"<{element}.*?>(?<value>.*?)</{element}>", RegexOptions.Singleline);
+            var rxElement = new Regex($@"<{element}(>|\s.*?>)(?<value>.*?)</{element}>", RegexOptions.Singleline);
             return base.Filter(rxElement, "value");
         }
 
@@ -41,7 +41,7 @@ namespace Errata.Text
 
         public bool FilterAttribute(string attribute)
         {
-            var rxElement = new Regex($@"\s{attribute}=""(?<value>.*?)""(>|\s)", RegexOptions.Singleline);
+            var rxElement = new Regex($@"\s{attribute}=""(?<value>.*?)""(>|\s|/>)", RegexOptions.Singleline);
             return base.Filter(rxElement, "value");
         }
     }

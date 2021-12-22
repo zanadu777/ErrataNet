@@ -24,8 +24,8 @@ namespace Errata.Text.Tests
             sub.ClearAll();
 
 
-            sub.FilterElement("book", XmlTests.AtrributeOf("id" , "bk109")).Should().BeTrue();
-            sub.FilterAttribute("id" ).Should().BeTrue();
+            sub.FilterElement("book", XmlTests.AtrributeOf("id", "bk109")).Should().BeTrue();
+            sub.FilterAttribute("id").Should().BeTrue();
             sub.Substring.Should().Be("bk109");
 
             sub.ClearAll();
@@ -39,13 +39,23 @@ namespace Errata.Text.Tests
             sub.ClearAll();
 
 
-            sub.FilterElement("book", m=> XmlTests.ElementOf("genre", "Fantasy")(m)
-                                                       && XmlTests.ElementOf("publish_date", "2000-11-17")(m)).Should().BeTrue();
+            sub.FilterElement("book", m => XmlTests.ElementOf("genre", "Fantasy")(m)
+                                           && XmlTests.ElementOf("publish_date", "2000-11-17")(m)).Should().BeTrue();
             sub.FilterAttribute("id").Should().BeTrue();
             sub.Substring.Should().Be("bk103");
 
 
         }
+
+        [Test]
+        public void LikeInfragisticsTest()
+        {
+            var xml = TestUtils.ReadTestData("LikeInfragistics.xml");
+            var sub = new XmlSubstring(xml);
+            sub.FilterElement("fields").Should().BeTrue();
+            sub.FilterElement("field", XmlTests.AtrributeOf("id", "2")).Should().BeTrue(); ;
+            sub.FilterAttribute("name").Should().BeTrue();
+            sub.Substring.Should().Be("field2");
+        }
     }
 }
- 

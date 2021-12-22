@@ -49,6 +49,11 @@ namespace Errata.Text
             }
         }
 
+        public override string ToString()
+        {
+            return Substring;
+        }
+
 
         public int Start
         {
