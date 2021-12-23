@@ -94,7 +94,7 @@ namespace Errata.Text
         }
 
 
-        public bool Filter(Regex regex)
+        public bool RegexFilter(Regex regex)
         {
             var match = regex.Match(Substring);
             if (match.Success)
@@ -107,7 +107,7 @@ namespace Errata.Text
         }
 
 
-        public bool Filter(Regex regex,  Predicate<Match> matchChooser)
+        public bool RegexFilter(Regex regex,  Predicate<Match> matchChooser)
         {
             var matches = regex.Matches(Substring);
 
@@ -130,7 +130,7 @@ namespace Errata.Text
 
 
 
-        public bool Filter(Regex regex, int pos)
+        public bool RegexFilter(Regex regex, int pos)
         {
             var matches = regex.Matches(Substring);
 
@@ -150,7 +150,7 @@ namespace Errata.Text
 
         }
 
-        public bool Filter(Regex regex, string group)
+        public bool RegexFilter(Regex regex, string group)
         {
             var match = regex.Match(Substring);
             if (match.Success)
@@ -164,7 +164,7 @@ namespace Errata.Text
         }
 
 
-        public bool Filter(Regex regex, string group , Predicate<Match> matchChooser)
+        public bool RegexFilter(Regex regex, string group , Predicate<Match> matchChooser)
         {
             var matches = regex.Matches(Substring);
 

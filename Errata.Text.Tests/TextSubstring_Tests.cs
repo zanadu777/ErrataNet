@@ -39,7 +39,7 @@ namespace Errata.Text.Tests
         {
 
             var sub = new TextSubstring("Test123Test");
-            sub.Filter(new Regex(@"\d+"));
+            sub.RegexFilter(new Regex(@"\d+"));
             sub.Substring.Should().Be("123");
 
         }
@@ -50,20 +50,20 @@ namespace Errata.Text.Tests
         public void ReplaceTests()
         {
             var sub = new TextSubstring("Test123Test");
-            sub.Filter(new Regex(@"\d+"));
+            sub.RegexFilter(new Regex(@"\d+"));
             sub.Substring = "123";
             sub.Substring.Should().Be("123");
             sub.Text.Should().Be("Test123Test");
 
             sub.ClearAll();
 
-            sub.Filter(new Regex(@"\d+"));
+            sub.RegexFilter(new Regex(@"\d+"));
             sub.Substring = "1234";
             sub.Substring.Should().Be("1234");
             sub.Text.Should().Be("Test1234Test");
 
             sub.ClearAll();
-            sub.Filter(new Regex(@"\d+"));
+            sub.RegexFilter(new Regex(@"\d+"));
             sub.Substring = "12";
             sub.Substring.Should().Be("12");
             sub.Text.Should().Be("Test12Test");
@@ -75,9 +75,9 @@ namespace Errata.Text.Tests
         {
             var book = TestUtils.ReadTestData("Books.xml");
             var sub = new TextSubstring(book);
-            sub.Filter(new Regex(@"<book.*?</book>", RegexOptions.Singleline));
+            sub.RegexFilter(new Regex(@"<book.*?</book>", RegexOptions.Singleline));
 
-            sub.Filter(new Regex(@"<price>(?<p>.*?)</price>"), "p");
+            sub.RegexFilter(new Regex(@"<price>(?<p>.*?)</price>"), "p");
 
             sub.Substring.Should().Be("44.95");
 
@@ -87,7 +87,7 @@ namespace Errata.Text.Tests
                 @"<book.*?<price>(?<price>.*?)</price>.*?<publish_date>(?<publish>.*?)</publish_date>.*?</book>",
                 RegexOptions.Singleline);
 
-            sub.Filter(regex, "price" ,m=> m.Groups["publish"].Value == "2000-09-02");
+            sub.RegexFilter(regex, "price" ,m=> m.Groups["publish"].Value == "2000-09-02");
 
             sub.Substring.Should().Be("4.95");
 
@@ -101,15 +101,15 @@ namespace Errata.Text.Tests
 
             var book = TestUtils.ReadTestData("Books.xml");
             var sub = new TextSubstring(book);
-            sub.Filter(new Regex(@"<book.*?</book>", RegexOptions.Singleline));
+            sub.RegexFilter(new Regex(@"<book.*?</book>", RegexOptions.Singleline));
 
-            sub.Filter(new Regex(@"<price>(?<p>.*?)</price>"), "p");
+            sub.RegexFilter(new Regex(@"<price>(?<p>.*?)</price>"), "p");
 
             
 
             sub.ClearLast(1);
 
-            sub.Filter(new Regex(@"<genre>(?<p>.*?)</genre>"), "p");
+            sub.RegexFilter(new Regex(@"<genre>(?<p>.*?)</genre>"), "p");
 
             sub.Substring.Should().Be("Computer");
 
@@ -121,9 +121,13 @@ namespace Errata.Text.Tests
         {
             var book = TestUtils.ReadTestData("Books.xml");
             var sub = new TextSubstring(book);
-            sub.Filter(new Regex(@"<book.*?</book>", RegexOptions.Singleline),2);
-            sub.Filter(new Regex(@"<price>(?<p>.*?)</price>"), "p");
+            sub.RegexFilter(new Regex(@"<book.*?</book>", RegexOptions.Singleline),2);
+            sub.RegexFilter(new Regex(@"<price>(?<p>.*?)</price>"), "p");
             sub.Substring.Should().Be("5.95");
         }
+
+
+      
+      
     }
 }
