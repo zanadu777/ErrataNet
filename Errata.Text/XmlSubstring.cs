@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Text.RegularExpressions;
 
-namespace Errata.Text
+namespace System.Text.Errata
 {
     public  class XmlSubstring:TextSubstring
     {
